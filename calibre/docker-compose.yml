@@ -1,0 +1,45 @@
+services:
+  calibre:
+    image: lscr.io/linuxserver/calibre:latest
+    container_name: calibre
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Phoenix
+    volumes:
+      - ${BASE_VOLUME}/calibre/config:/config
+    networks:
+      - caddy
+    restart: unless-stopped
+    labels:
+      - homepage.group=Media
+      - homepage.name=Calibre
+      - homepage.description=eBook Management Server
+      - homepage.icon=si-bookstack
+      - homepage.href=https://calibre-server.${BASE_DOMAIN}
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Phoenix
+    volumes:
+      - ${BASE_VOLUME}/calibre/config:/config
+      - ${BASE_VOLUME}/calibre/config/Calibre Library:/books
+    networks:
+      - caddy
+    restart: unless-stopped
+    labels:
+      - homepage.group=Media
+      - homepage.name=Calibre Web
+      - homepage.description=eBook Library
+      - homepage.icon=si-calibreweb
+      - homepage.href=https://calibre-web.${BASE_DOMAIN}
+
+networks:
+  caddy:
+    name: caddy-net
+    external: true

@@ -1,0 +1,41 @@
+services:
+  caddy:
+    # image: caddy
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM caddy:builder AS builder
+        RUN caddy-builder github.com/caddy-dns/route53
+        FROM caddy:latest
+        COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+    container_name: caddy
+    restart: always
+    env_file:
+      - caddy.env
+    volumes:
+      - ${BASE_VOLUME}/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ${BASE_VOLUME}/caddy/config:/config
+      - ${BASE_VOLUME}/caddy/data:/data
+      - ${BASE_VOLUME}/caddy/test:/wdata3
+    ports:
+      - 80:80 # HTTP:            universal
+      - 443:443 # HTTPS:         universal
+      - 784:784 # DNS-over-QUIC: adguard
+      - 853:853 # DNS-over-TLS:  adguard
+    networks:
+      - caddy-net
+    labels:
+      - homepage.group=Network
+      - homepage.name=Caddy
+      - homepage.description=Reverse Proxy
+      - homepage.icon=si-caddy
+      # - homepage.widget.type=caddy
+      # - homepage.widget.url=caddy:2019
+
+networks:
+  caddy-net:
+    name: caddy-net
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/16

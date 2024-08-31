@@ -1,0 +1,23 @@
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - ${BASE_VOLUME}/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    networks:
+      - caddy
+    labels:
+      - homepage.group=Various
+      - homepage.name=Home Assistant
+      - homepage.description=Home Automation
+      - homepage.icon=si-homeassistant
+      - homepage.href=https://hass.${BASE_DOMAIN}
+
+networks:
+  caddy:
+    name: caddy-net
+    external: true

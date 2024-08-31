@@ -1,0 +1,35 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    volumes:
+      - ${BASE_VOLUME}/homepage/config:/app/config
+    networks:
+      - caddy
+      - socketproxy
+    restart: unless-stopped
+  dockersocketproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: dockersocketproxy
+    environment:
+      - CONTAINERS=1
+      - SERVICES=1
+      - TASKS=1
+      - POST=0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socketproxy
+    restart: unless-stopped
+    # labels:
+    #   - homepage.group=Various
+    #   - homepage.name=Homepage
+    #   - homepage.description=Status Pages
+    #   - homepage.icon=si-homepage
+
+networks:
+  caddy:
+    name: caddy-net
+    external: true
+  socketproxy:
+    name: socket-proxy-net
