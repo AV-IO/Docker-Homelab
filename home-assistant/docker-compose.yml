@@ -2,20 +2,60 @@ services:
   homeassistant:
     container_name: home-assistant
     image: homeassistant/home-assistant
-    restart: unless-stopped
     privileged: true
+    environment:
+      - TZ=America/Phoenix
     volumes:
       - ${BASE_VOLUME}/homeassistant/config:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     networks:
       - caddy
+    restart: unless-stopped
     labels:
       - homepage.group=Various
       - homepage.name=Home Assistant
       - homepage.description=Home Automation
       - homepage.icon=si-homeassistant
       - homepage.href=https://hass.${BASE_DOMAIN}
+  mqtt:
+    image: "eclipse-mosquitto:openssl"
+    container_name: "mosquitto"
+    environment:
+      - TZ=America/Phoenix
+    volumes:
+      - ${BASE_VOLUME}/homeassistant/mqtt/config:/mosquitto/config
+      - ${BASE_VOLUME}/homeassistant/mqtt/data:/mosquitto/data
+      - ${BASE_VOLUME}/homeassistant/mqtt/log:/mosquitto/log
+    ports:
+      - 1883:1883
+      - 9001:9001
+    networks:
+      - caddy
+    restart: unless-stopped
+    labels:
+      - homepage.group=Network
+      - homepage.name=MQTT
+      - homepage.description=Mosquitto Message Broker
+      - homepage.icon=si-mqtt
+  rtlamr:
+    container_name: rtlamr2mqtt
+    image: allangood/rtlamr2mqtt
+    environment:
+      - TZ=America/Phoenix
+    devices:
+      - /dev/bus/usb
+    volumes:
+      - ${BASE_VOLUME}/homeassistant/rtlamr2mqtt/rtlamr2mqtt.yaml:/etc/rtlamr2mqtt.yaml:ro
+      - ${BASE_VOLUME}/homeassistant/rtlamr2mqtt/data:/var/lib/rtlamr2mqtt
+    networks:
+      - caddy
+    restart: unless-stopped
+    labels:
+      - homepage.group=Various
+      - homepage.name=LoRa Meter Reader
+      - homepage.description=RTL-SDR AMR to MQTT message broker
+      - homepage.icon=
 
 networks:
   caddy:
