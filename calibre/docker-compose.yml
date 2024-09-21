@@ -19,9 +19,9 @@ services:
       - homepage.description=eBook Management Server
       - homepage.icon=si-bookstack
       - homepage.href=https://calibre-server.${BASE_DOMAIN}
-  calibre-web:
+  calibre-web-books:
     image: lscr.io/linuxserver/calibre-web:latest
-    container_name: calibre-web
+    container_name: calibre-web-books
     environment:
       - PUID=1000
       - PGID=1000
@@ -34,10 +34,29 @@ services:
     restart: unless-stopped
     labels:
       - homepage.group=Media
-      - homepage.name=Calibre Web
+      - homepage.name=Calibre Web Books
       - homepage.description=eBook Library
       - homepage.icon=si-calibreweb
-      - homepage.href=https://calibre-web.${BASE_DOMAIN}
+      - homepage.href=https://calibre-books.${BASE_DOMAIN}
+  calibre-web-manuals:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web-manuals
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Phoenix
+    volumes:
+      - ${BASE_VOLUME}/calibre/config:/config
+      - ${BASE_VOLUME}/calibre/config/Calibre Manuals:/books
+    networks:
+      - caddy
+    restart: unless-stopped
+    labels:
+      - homepage.group=Media
+      - homepage.name=Calibre Web Manuals
+      - homepage.description=Manual Library
+      - homepage.icon=si-calibreweb
+      - homepage.href=https://calibre-manuals.${BASE_DOMAIN}
 
 networks:
   caddy:
