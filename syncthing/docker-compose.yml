@@ -3,6 +3,7 @@ services:
     image: syncthing/syncthing
     container_name: syncthing
     environment:
+      - TZ=America/Phoenix
       - PUID=1000
       - PGID=1000
     volumes:
@@ -19,6 +20,7 @@ services:
       - homepage.name=Syncthing
       - homepage.description=File syncing
       - homepage.icon=si-syncthing
+      - homepage.href=https://syncthing.${BASE_DOMAIN}
 
 networks:
   caddy:

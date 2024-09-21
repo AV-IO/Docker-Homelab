@@ -10,6 +10,8 @@ services:
         COPY --from=builder /usr/bin/caddy /usr/bin/caddy
     container_name: caddy
     restart: always
+    environment:
+      - TZ=America/Phoenix
     env_file:
       - caddy.env
     volumes:
