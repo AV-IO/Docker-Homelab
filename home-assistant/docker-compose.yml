@@ -56,6 +56,22 @@ services:
       - homepage.name=LoRa Meter Reader
       - homepage.description=RTL-SDR AMR to MQTT message broker
       - homepage.icon=
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:latest
+    environment:
+      - TZ=America/Phoenix
+    volumes:
+      - ${BASE_VOLUME}/homeassistant/zigbee2mqtt/data:/app/data
+    networks:
+      - caddy
+    restart: unless-stopped
+    labels:
+      - homepage.group=Network
+      - homepage.name=Zigbee 2 MQTT
+      - homepage.description=Zigbee to MQTT translator
+      - homepage.icon=si-zigbee2mqtt
+      - homepage.href=zigbee2mqtt.${BASE_DOMAIN}
 
 networks:
   caddy:
