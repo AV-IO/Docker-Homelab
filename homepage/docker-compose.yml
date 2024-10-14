@@ -7,7 +7,7 @@ services:
     volumes:
       - ${BASE_VOLUME}/homepage/config:/app/config
     networks:
-      - caddy
+      - caddy-net
       - socketproxy
     restart: unless-stopped
   dockersocketproxy:
@@ -30,7 +30,7 @@ services:
     #   - homepage.icon=si-homepage
 
 networks:
-  caddy:
+  caddy-net:
     name: caddy-net
     external: true
   socketproxy:
