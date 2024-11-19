@@ -18,7 +18,7 @@ services:
       - homepage.name=Calibre
       - homepage.description=eBook Management Server
       - homepage.icon=si-bookstack
-      - homepage.href=https://calibre-server.${BASE_DOMAIN}
+      - homepage.href=https://server.calibre.${INT_DOMAIN}
   calibre-web-books:
     image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web-books
@@ -37,7 +37,7 @@ services:
       - homepage.name=Calibre Web Books
       - homepage.description=eBook Library
       - homepage.icon=si-calibreweb
-      - homepage.href=https://calibre-books.${BASE_DOMAIN}
+      - homepage.href=https://calibre.${PUB_DOMAIN}
   calibre-web-manuals:
     image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web-manuals
@@ -56,7 +56,7 @@ services:
       - homepage.name=Calibre Web Manuals
       - homepage.description=Manual Library
       - homepage.icon=si-calibreweb
-      - homepage.href=https://calibre-manuals.${BASE_DOMAIN}
+      - homepage.href=https://manuals.calibre.${INT_DOMAIN}
 
 networks:
   caddy:

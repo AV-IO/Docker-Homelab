@@ -17,7 +17,7 @@ services:
       - homepage.name=Home Assistant
       - homepage.description=Home Automation
       - homepage.icon=si-homeassistant
-      - homepage.href=https://hass.${BASE_DOMAIN}
+      - homepage.href=https://hass.${PUB_DOMAIN}
   mqtt:
     image: "eclipse-mosquitto:openssl"
     container_name: "mosquitto"
@@ -70,7 +70,7 @@ services:
       - homepage.name=Zigbee 2 MQTT
       - homepage.description=Zigbee to MQTT translator
       - homepage.icon=si-zigbee2mqtt
-      - homepage.href=zigbee2mqtt.${BASE_DOMAIN}
+      - homepage.href=zigbee2mqtt.${INT_DOMAIN}
 
 networks:
   caddy:
