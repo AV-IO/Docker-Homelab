@@ -20,10 +20,11 @@ services:
       - ${BASE_VOLUME}/caddy/data:/data
       - ${BASE_VOLUME}/caddy/test:/wdata3
     ports:
-      - 80:80 # HTTP:            universal
-      - 443:443 # HTTPS:         universal
-      - 784:784 # DNS-over-QUIC: adguard
-      - 853:853 # DNS-over-TLS:  adguard
+      - 80:80 # HTTP
+      - 443:443 # HTTPS
+      - 784:784 # DNS-over-QUIC
+      - "853:853/tcp" # DNS-over-TLS
+      - "853:853/udp" # DNS-over-QUIC
     networks:
       - caddy-net
     labels:
