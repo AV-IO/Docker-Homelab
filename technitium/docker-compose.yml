@@ -1,0 +1,29 @@
+services:
+  technitium-server:
+    container_name: dns-server
+    image: technitium/dns-server:latest
+    env_file:
+      - server.env
+    volumes:
+      - ${BASE_VOLUME}/technitium/server/config:/etc/dns
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "68:68/udp"
+    networks:
+      - caddy
+    sysctls:
+      - net.ipv4.ip_local_port_range=1024 65000
+    restart: unless-stopped
+    labels:
+      - homepage.group=Network
+      - homepage.name=Technitium
+      - homepage.description=DNS
+      - homepage.icon=https://dns.int.ianguile.com/img/logo.png
+      - homepage.href=https://dns.${INT_DOMAIN}
+
+networks:
+  caddy:
+    name: caddy-net
+    external: true
