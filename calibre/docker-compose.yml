@@ -19,9 +19,12 @@ services:
       - homepage.description=eBook Management Server
       - homepage.icon=si-bookstack
       - homepage.href=https://server.calibre.${INT_DOMAIN}
+
   calibre-web-books:
     image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web-books
+    depends_on:
+      - calibre
     environment:
       - PUID=1000
       - PGID=1000
@@ -38,9 +41,12 @@ services:
       - homepage.description=eBook Library
       - homepage.icon=si-calibreweb
       - homepage.href=https://calibre.${PUB_DOMAIN}
+
   calibre-web-manuals:
     image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web-manuals
+    depends_on:
+      - calibre
     environment:
       - PUID=1000
       - PGID=1000

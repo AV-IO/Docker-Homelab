@@ -18,6 +18,7 @@ services:
       - homepage.description=Home Automation
       - homepage.icon=si-homeassistant
       - homepage.href=https://hass.${PUB_DOMAIN}
+
   mqtt:
     image: "eclipse-mosquitto:openssl"
     container_name: "mosquitto"
@@ -38,9 +39,12 @@ services:
       - homepage.name=MQTT
       - homepage.description=Mosquitto Message Broker
       - homepage.icon=si-mqtt
+
   rtlamr:
     container_name: rtlamr2mqtt
     image: allangood/rtlamr2mqtt
+    depends_on:
+      - mqtt
     environment:
       - TZ=${TZ}
     devices:
@@ -55,9 +59,12 @@ services:
       - homepage.group=Various
       - homepage.name=LoRa Meter Reader
       - homepage.description=RTL-SDR AMR to MQTT message broker
+
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt:latest
+    depends_on:
+      - mqtt
     environment:
       - TZ=${TZ}
     volumes:
