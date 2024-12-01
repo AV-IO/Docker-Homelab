@@ -7,7 +7,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/calibre/config:/config
     networks:
@@ -25,7 +25,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/calibre/config:/config
       - ${BASE_VOLUME}/calibre/config/Calibre Library:/books
@@ -44,7 +44,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/calibre/config:/config
       - ${BASE_VOLUME}/calibre/config/Calibre Manuals:/books

@@ -3,7 +3,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/homepage/config:/app/config
     networks:

@@ -4,7 +4,7 @@ services:
     image: homeassistant/home-assistant:latest
     privileged: true
     environment:
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/homeassistant/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -22,7 +22,7 @@ services:
     image: "eclipse-mosquitto:openssl"
     container_name: "mosquitto"
     environment:
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/homeassistant/mqtt/config:/mosquitto/config
       - ${BASE_VOLUME}/homeassistant/mqtt/data:/mosquitto/data
@@ -42,7 +42,7 @@ services:
     container_name: rtlamr2mqtt
     image: allangood/rtlamr2mqtt
     environment:
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     devices:
       - /dev/bus/usb
     volumes:
@@ -59,7 +59,7 @@ services:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt:latest
     environment:
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     volumes:
       - ${BASE_VOLUME}/homeassistant/zigbee2mqtt/data:/app/data
     networks:

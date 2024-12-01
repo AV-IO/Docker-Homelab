@@ -11,7 +11,7 @@ services:
     container_name: caddy
     restart: always
     environment:
-      - TZ=America/Phoenix
+      - TZ=${TZ}
     env_file:
       - caddy.env
     volumes:
