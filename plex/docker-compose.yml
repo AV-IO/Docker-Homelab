@@ -1,0 +1,27 @@
+services:
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=${TZ}
+    volumes:
+      - ${BASE_VOLUME}/plex/config:/config
+      - ${BASE_VOLUME}/plex/transcode:/transcode
+      - ${BASE_VOLUME}/plex/data:/data
+    networks:
+      - caddy-net
+    restart: unless-stopped
+    labels:
+      - homepage.group=Media
+      - homepage.name=Plex
+      - homepage.description=Movies and TV
+      - homepage.icon=si-plex
+      - homepage.href=https://plex.${INT_DOMAIN}
+
+networks:
+  caddy-net:
+    name: caddy-net
+    external: true
