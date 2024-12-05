@@ -10,7 +10,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Various
@@ -32,7 +32,7 @@ services:
       - 1883:1883
       - 9001:9001
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Network
@@ -53,7 +53,7 @@ services:
       - ${BASE_VOLUME}/homeassistant/rtlamr2mqtt/rtlamr2mqtt.yaml:/etc/rtlamr2mqtt.yaml:ro
       - ${BASE_VOLUME}/homeassistant/rtlamr2mqtt/data:/var/lib/rtlamr2mqtt
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Various
@@ -70,7 +70,7 @@ services:
     volumes:
       - ${BASE_VOLUME}/homeassistant/zigbee2mqtt/data:/app/data
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Network
@@ -80,6 +80,6 @@ services:
       - homepage.href=zigbee2mqtt.${INT_DOMAIN}
 
 networks:
-  caddy:
+  caddy-net:
     name: caddy-net
     external: true

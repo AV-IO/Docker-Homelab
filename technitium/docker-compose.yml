@@ -12,7 +12,7 @@ services:
       - "67:67/udp"
       - "68:68/udp"
     networks:
-      - caddy
+      - caddy-net
     sysctls:
       - net.ipv4.ip_local_port_range=1024 65000
     restart: unless-stopped
@@ -24,6 +24,6 @@ services:
       - homepage.href=https://dns.${INT_DOMAIN}
 
 networks:
-  caddy:
+  caddy-net:
     name: caddy-net
     external: true

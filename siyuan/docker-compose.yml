@@ -17,5 +17,3 @@ networks:
   caddy-net:
     name: caddy-net
     external: true
-  socketproxy:
-    name: socket-proxy-net

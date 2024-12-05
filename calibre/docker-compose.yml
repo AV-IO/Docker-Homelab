@@ -11,7 +11,7 @@ services:
     volumes:
       - ${BASE_VOLUME}/calibre/config:/config
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Media
@@ -33,7 +33,7 @@ services:
       - ${BASE_VOLUME}/calibre/config:/config
       - ${BASE_VOLUME}/calibre/config/Calibre Library:/books
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Media
@@ -55,7 +55,7 @@ services:
       - ${BASE_VOLUME}/calibre/config:/config
       - ${BASE_VOLUME}/calibre/config/Calibre Manuals:/books
     networks:
-      - caddy
+      - caddy-net
     restart: unless-stopped
     labels:
       - homepage.group=Media
@@ -65,6 +65,6 @@ services:
       - homepage.href=https://manuals.calibre.${INT_DOMAIN}
 
 networks:
-  caddy:
+  caddy-net:
     name: caddy-net
     external: true

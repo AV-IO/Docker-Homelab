@@ -8,7 +8,7 @@ services:
       - ${BASE_VOLUME}/homepage/config:/app/config
     networks:
       - caddy-net
-      - socketproxy
+      - socketproxy-net
     restart: unless-stopped
   dockersocketproxy:
     image: ghcr.io/tecnativa/docker-socket-proxy:latest
@@ -21,7 +21,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
-      - socketproxy
+      - socketproxy-net
     restart: unless-stopped
     # labels:
     #   - homepage.group=Various
@@ -33,5 +33,5 @@ networks:
   caddy-net:
     name: caddy-net
     external: true
-  socketproxy:
-    name: socket-proxy-net
+  socketproxy-net:
+    name: socketproxy-net
